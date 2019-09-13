@@ -26,8 +26,8 @@ django-celery-results>=1.1.2
 ## Environment Files
 Create a .env file in the root of the project: 
 
-DJANGO_SECRET_KEY='"axr)ya3dob@*jzr9(eurplq%@b71$0%4wst6_+t&oqxgbe4xve"'
-DB_DATABASE=DB NAME 
+DJANGO_SECRET_KEY='"axr)ya3dob@*jzr9(eurplq%@b71$0%4wst6_+t&oqxgbe4xve"'  
+DB_DATABASE=DB NAME  
 DB_USERNAME=DB user 
 DB_PASSWORD=password of DB user 
 DB_HOSTNAME=IPADDR or HOSTNAME of MySQL DB 
@@ -39,5 +39,5 @@ LDAPURI=""
 DB Schema not provided here  
 
 ## Start the environment with docker-compose
-docker-compose build 
-docker-compose up -d 
+docker-compose build  
+docker-compose up -d  
