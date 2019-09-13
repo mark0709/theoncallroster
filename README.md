@@ -2,11 +2,11 @@
 Django On Call Roster / TOIL tracker 
 Group of containers to run the oncall roster. 
  
-nginx: display static content (reverse proxy for django) 
-django: the oncall roster 
-redis: used as a broker for celery 
-celery-worker: celery worker 
-celery-beat: celery 
+nginx: display static content (reverse proxy for django)  
+django: the oncall roster   
+redis: used as a broker for celery   
+celery-worker: celery worker   
+celery-beat: celery   
 
 ## Django requirements
 
