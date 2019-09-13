@@ -38,6 +38,10 @@ LDAPURI=""
 ## Restore The Database
 DB Schema not provided here   
 
+## To Do
+* LDAPAUTH - not working as expected    
+* Celery (periodic tasks) untested    
+
 ## Start the environment with docker-compose
 docker-compose build  
 docker-compose up -d  
