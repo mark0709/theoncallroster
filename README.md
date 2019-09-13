@@ -17,9 +17,9 @@ pytz>=2018.7
 django-auth-ldap>=1.7.0  
 holidays>=0.9.10 (used to determine public holidays)  
 gunicorn>=19.9.0 (used to display dynamic content)  
-redis>=3.3.8 
-django-redis>=4.10.0 
-celery>=4.3 
+redis>=3.3.8   
+django-redis>=4.10.0   
+celery>=4.3   
 django-celery-results>=1.1.2 
 
 
