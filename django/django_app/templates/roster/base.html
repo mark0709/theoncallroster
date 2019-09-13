@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/roster.css" %}"/>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="{% static "js/jquery-3.3.1.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/popper.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+    {% block extra_js %}{% endblock extra_js %}
+    {% block extrahead %}
+    <link rel="shortcut icon" href="{% static "images/favicon.ico"  %}"/>
+    {% endblock %}
+    {% load auth_extras %}
+  </head>
+  <body>
+    <p>
+    <div class="container">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img class="rosterimg" src="{% static "images/favicon.ico"  %}" width="50" height="50" class="d-inline-block align-top" alt="">
+         <span class"rostertxt1">ITDS Infrastructure Services</span><br>
+         <span class"rostertxt2">On Call Roster</span>
+      <span class="sr-only"></span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div style="position:absolute; right:50px;" class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Options Menu
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'index' %}">
+                <img src="{% static "images/home.png"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                Home
+              </a>
+              {% if user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'logout' %}">
+                <img src="{% static "images/logout.png"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                 Log Out ({{ user.username }})
+              </a>
+              {% else %}
+              <a class="dropdown-item" href="{% url 'login' %}">
+                <img src="{% static "images/login.png"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                 Login
+              </a>
+              {% endif %}
+              <a class="dropdown-item" href="{% url 'update' %}">
+                <img src="{% static "images/update.ico"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                Update Roster &nbsp;
+                <img src="{% static "images/padlock.png"  %}" width="25" height="25" class="d-inline-block align-top" alt="">
+              </a>
+              <a class="dropdown-item" href="{% url 'contact_info' %}">
+                <img src="{% static "images/phone.ico"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                Contact Details
+                <img src="{% static "images/padlock.png"  %}" width="25" height="25" class="d-inline-block align-top" alt="">
+              </a>
+              <a class="dropdown-item" href="{% url 'add_user' %}">
+                <img src="{% static "images/plus.ico"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                Add New User &nbsp;
+                <img src="{% static "images/padlock.png"  %}" width="25" height="25" class="d-inline-block align-top" alt="">
+              </a>
+              <a class="dropdown-item" href="{% url 'search' %}">
+                <img src="{% static "images/search.png"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                Search Roster By Date
+              </a>
+              <a class="dropdown-item" href="{% url 'add_roster_date' %}">
+                <img src="{% static "images/adddate.ico"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                Add Roster Date
+                <img src="{% static "images/padlock.png"  %}" width="25" height="25" class="d-inline-block align-top" alt="">
+              </a>
+              {% if user.is_authenticated %}
+              <a class="dropdown-item" href="{% url 'toilbalance' %}">
+                <img src="{% static "images/time-off.png"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                My TOIL Balance
+                <img src="{% static "images/padlock.png"  %}" width="25" height="25" class="d-inline-block align-top" alt="">
+              </a>
+              <a class="dropdown-item" href="{% url 'update_toil' %}">
+                <img src="{% static "images/time-off.png"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                Update My TOIL
+                <img src="{% static "images/padlock.png"  %}" width="25" height="25" class="d-inline-block align-top" alt="">
+              </a>
+               {% endif %}
+               {% if request.user|has_group:"isteamleaders" %} 
+              <a class="dropdown-item" href="{% url 'toilsummary' %}">
+                <img src="{% static "images/time-off.png"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                Teams TOIL Balance (TL's Only)
+                <img src="{% static "images/padlock.png"  %}" width="25" height="25" class="d-inline-block align-top" alt="">
+              </a>
+               {% endif %}
+               <div class="dropdown-divider"></div>
+               <a class="dropdown-item"  href="{% url 'admin:index' %}">
+                 <img src="{% static "images/djadmin.png"  %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                 Django Admin
+               </a>
+             </div>
+      </nav>
+    </div>
+    {% block body_block %}This is body_block's default content.{% endblock %}
+  </body>
+</html>

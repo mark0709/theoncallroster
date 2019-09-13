@@ -1,0 +1,40 @@
+{% extends "roster/base.html" %}
+{% block title %}Search Roster By Date{% endblock %}
+{% block extra_js %}
+{% load staticfiles %}
+ <script type="text/javascript" src='{% static "js/roster_selector.js" %}'></script>
+{% endblock extra_js %}
+{% block body_block %}
+    <p>
+    <div class="container">
+      <table class="table table-bordered table-striped table-dark table-primary">
+        <colgroup span="3"></colgroup>
+        <thead>
+          <th scope="col">On Call Start Date</th>
+          <th scope="col">Server & Storage</th>
+          <th scope="col">Networks</th>
+        </thead>
+        <tbody>
+         <form method="POST">
+         <tr>
+         {% for f in form %}
+            <td> {{ f }} </td>
+         {% endfor %}
+         </tr>
+         {% csrf_token %}
+       </tbody>
+      </table>
+    </div>
+    <p>
+      <div class="container">
+        <table id="changelog" class="table table-bordered table-striped table-secondary">
+          <colgroup span="3"></colgroup>
+          <thead>
+            <tr><th colspan="3"><center>Change Log</center></th></tr>
+            <th scope="col">Change Date/Time</th>
+            <th scope="col">Server & Storage</th>
+            <th scope="col">Networks</th>
+          </thead>
+          <tbody>
+            <tr></tr>
+{% endblock %}

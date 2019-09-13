@@ -1,0 +1,8 @@
+#leftbutton {
+    float: left;
+    margin: 10px;
+   }
+#rightbutton {
+    float: right;
+    margin: 10px;
+   }

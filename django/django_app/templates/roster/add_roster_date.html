@@ -1,0 +1,32 @@
+{% extends "roster/base.html" %}
+{% block title %}Add New Roster Date{% endblock %}
+{% block body_block %}
+    <p>
+    <div class="container">
+      <form name="status_form" method="POST">
+      {% include 'roster/messages.html' %}
+        {% block content %}
+        {% endblock %}
+      </form>
+    </div>
+      <p>
+      <div class="container">
+       <table class="table table-bordered table-striped table-dark table-primary">
+        <form name="add_date_form" method="POST">
+          <tr>
+            <td>Last Roster Date</td>
+            <td> {{ last_date }} </td>
+          </tr>
+          {% csrf_token %}
+       </table>
+       <input class="btn btn-primary" type="submit" value="Add New Date">
+      </div>
+     <!--
+      <form name="add_user_form" method="POST">
+       {{ form.as_table }}
+       {% csrf_token %}
+      </table>
+      <input class="btn btn-primary" type="submit" value="submit">
+    </div>
+    -->
+{% endblock %}

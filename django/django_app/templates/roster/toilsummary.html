@@ -1,0 +1,27 @@
+{% extends "roster/base.html" %}
+{% block title %}Toil Summary{% endblock %}
+{% block extra_js %}
+{% load staticfiles %}
+ <script type="text/javascript" src='{% static "js/paginator.js" %}'></script>
+{% endblock extra_js %}
+{% block body_block %}
+<p>
+    <div class="container">
+        <table class="table table-bordered table-striped table-dark">
+          <colgroup span="2"></colgroup>
+            <thead>
+              <th scope="col">Name</th>
+              <th scope="col">Current Toil Balance (hours)</th>
+            </thead>
+            <tbody>
+               {% if toilsum %}
+                {% for t in toilsum %}
+                  <tr> 
+                    <td>{{ t.person_name__person_name}}</td>
+                    <td>{{ t.toilsummary }}</td>
+                  </tr>
+                 {%endfor%}
+                {% endif %}
+            </tbody>
+         </table>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "roster/base.html" %}
+{% block title %}On Call Roster{% endblock %}
+{% block extra_js %}
+{% load staticfiles %}
+ <script type="text/javascript" src='{% static "js/paginator.js" %}'></script>
+{% endblock extra_js %}
+{% block body_block %}
+    <p>
+      <div class="container">
+        <table class="table table-hover table-bordered table-striped table-dark table-primary">
+          <colgroup span="4"></colgroup>
+            <thead>
+              <th colspan="2"><center>Week</center></th>
+              <th scope="col">Server & Storage Services</th>
+              <th scope="col">Network Services</th>
+              <th scope="col">Enterprise Systems</th>
+              <th scope="col">Public Holiday/s</th>
+              <tr>
+                <th>Start</th>
+                <th>End</th>
+                <th>On Call Person</th>
+                <th>On Call Person</th>
+                <th>On Call Person</th>
+                <th>(TOIL Days)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--
+              These values come from view.py:
+                d.roster_date will be the roster start date
+                d.roster_end_date will be the roster end date
+                d.oss_person will be the server & storage person
+                d.nw_person as above but for networks
+                d.es_person as above but for enterprise systems
+                d.2 is the public holiday dates
+              -->
+              {% if dates %}
+                {% for d in dates %}
+                  <tr> 
+                      <td> {{ d.roster_date|date:"Y-m-d" }} </td>
+                      <td> {{ d.roster_end_date|date:"Y-m-d" }} </td>
+                      <td> {{ d.oss_person }} </td>
+                      <td> {{ d.nw_person }} </td>
+                      <td> {{ d.es_person }} </td>
+                      {% if d.public_holiday %}
+                        <td class="bg-success"> {{ d.public_holiday }} </td>
+                      {% else %}
+                        <td>  </td>
+                      {% endif %}
+                  </tr>
+                {% endfor %}
+              {% endif %}
+            </tbody>
+         </table>
+        {% if dates.has_other_pages %}
+          <nav aria-label="Page navigation">
+          <ul class="pagination">
+          {% if dates.has_previous %}
+            <li><a class="btn btn-outline-primary mb-4"  href="?page={{ dates.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="btn btn-outline-primary mb-4"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in dates.paginator.page_range %}
+            {% if dates.number == i %}
+              <li class="active btn btn-outline-primary mb-4"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+             <li><a class="btn btn-outline-primary mb-4" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if dates.has_next %}
+            <li><a class="btn btn-outline-primary mb-4" href="?page={{ dates.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="btn btn-outline-primary mb-4"><span>&raquo;</span></li>
+          {% endif %}
+          </ul>
+          </nav>
+       {% endif %}
+    </div>
+  {% endblock %}

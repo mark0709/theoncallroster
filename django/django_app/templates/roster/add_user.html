@@ -1,0 +1,20 @@
+{% extends "roster/base.html" %}
+{% block title %}Add User To On Call Roster{% endblock %}
+{% block body_block %}
+    <p>
+    <div class="container">
+      <form name="status_form" method="POST">
+      {% include 'roster/messages.html' %}
+        {% block content %}
+        {% endblock %}
+      </form>
+    </div>
+    <div class="container">
+     <table class="table table-bordered table-striped table-dark table-primary">
+      <form name="add_user_form" method="POST">
+       {{ form.as_table }}
+       {% csrf_token %}
+      </table>
+      <input class="btn btn-primary" type="submit" value="submit new user">
+    </div>
+{% endblock %}

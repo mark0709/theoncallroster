@@ -1,0 +1,51 @@
+{% extends "roster/base.html" %}
+{% block title %}Update On Call Roster{% endblock %}
+{% block extra_js %}
+{% load staticfiles %}
+ <script type="text/javascript" src='{% static "js/roster_selector.js" %}'></script>
+{% endblock extra_js %}
+{% block body_block %}
+    <p>
+      <div class="container">
+        <form name="status_form" method="POST">
+        {% include 'roster/messages.html' %}
+          {% block content %}
+          {% endblock %}
+        </form>
+      </div>
+    <div class="container">
+      <table class="table table-bordered table-striped table-dark table-primary">
+        <colgroup span="4"></colgroup>
+        <thead>
+          <th scope="col">On Call Start Date</th>
+          <th scope="col">Server & Storage</th>
+          <th scope="col">Network Services</th>
+          <th scope="col">Enterprise Systems</th>
+        </thead>
+        <tbody>
+         <form method="POST">
+         <tr>
+         {% for field in form %}
+            <td> {{ field }} </td>
+         {% endfor %}
+         </tr>
+         {% csrf_token %}
+       </tbody>
+      </table>
+      <center><input class="btn btn-primary" type="submit" value="submit changes"></center>
+    <p>
+    </div>
+    <p>
+      <div class="container">
+          <table id="changelog" class="table table-bordered table-striped table-secondary">
+            <colgroup span="3"></colgroup>
+            <thead>
+              <tr><th colspan="4"><center>Change Log</center></th></tr>
+              <th scope="col">Change Date/Time</th>
+              <th scope="col">Server & Storage</th>
+              <th scope="col">Network Services</th>
+              <th scope="col">Enterprise Systems</th>
+            </thead>
+            <tbody>
+              <tr></tr>
+{% endblock %}

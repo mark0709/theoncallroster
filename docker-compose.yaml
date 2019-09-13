@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./nginx/
+    ports:
+      - "80:80"
+    volumes: 
+      - staticfiles:/www/static:ro
+    links:
+      - django
+    depends_on:
+      - django
+    env_file: .env
+
+  django:
+    container_name: django
+    restart: always
+    build: ./django/
+    ports:
+      - "8000:8000"
+    volumes:
+            - oncallroster:/usr/local
+            - staticfiles:/usr/local/oncall-roster/static
+    env_file: .env
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  celery-beat:
+    container_name: celery-beat
+    restart: always
+    build: ./celery-beat/
+    volumes:
+            - oncallroster:/usr/local
+    links:
+      - redis
+    depends_on:
+      - redis
+    env_file: .env
+
+  celery-worker:
+    container_name: celery-worker
+    restart: always
+    build: ./celery-worker/
+    volumes:
+            - oncallroster:/usr/local
+    links:
+      - redis
+    depends_on:
+      - redis
+    env_file: .env
+
+volumes:
+     oncallroster: 
+     staticfiles:

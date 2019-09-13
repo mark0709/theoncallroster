@@ -1,0 +1,65 @@
+{% extends "roster/base.html" %}
+{% block title %}Toil Balances{% endblock %}
+{% block extra_js %}
+{% load staticfiles %}
+ <script type="text/javascript" src='{% static "js/paginator.js" %}'></script>
+{% endblock extra_js %}
+{% block body_block %}
+<p>
+    <div class="container">
+     {% if toil %}
+        <table class="table table-bordered table-striped table-dark">
+          <colgroup span="2"></colgroup>
+            <thead>
+              <th scope="col">Name</th>
+              <th scope="col">Current Toil Balance (hours)</th>
+            </thead>
+            <tbody>
+                {% for t in toil %}
+                 {% ifequal user.username t.1 %}
+                  <tr> 
+                    <td>{{ t.0 }}</td>
+                    {% if balance %}
+                    <td>{{ balance }}</td>
+                    {% endif %}
+                  </tr>
+                   {% endifequal %}
+                 {%endfor%}
+            </tbody>
+         </table>
+         <p>
+         <table class="table table-bordered table-striped table-dark">
+         <colgroup span="8"></colgroup>
+         <thead>
+           <th scope="col">TOIL Date</th>
+           <th scope="col">1x</th>
+           <th scope="col">1.5x</th>
+           <th scope="col">2x</th>
+           <th scope="col">2.5x</th>
+           <th scope="col">Taken</th>
+           <th scope="col">Notes</th>
+        </thead>
+        <tbody>
+      {% for t in toil %}
+        {% ifequal user.username t.1 %}
+         {% if toil_history %}
+           {% for h in toil_history %}
+            <tr>
+              <td>{{ h.toil_date }}</td>
+              <td>{{ h.toil_earned_1x }}</td>
+              <td>{{ h.toil_earned_1_5x}}</td>
+              <td>{{ h.toil_earned_2x}}</td>
+              <td>{{ h.toil_earned_2_5x}}</td>
+              <td>{{ h.toil_taken }}</td>
+              <td>{{ h.toil_notes}}</td>
+             </tr>
+            {% endfor %}
+          {% endif %}
+        {% endifequal %}
+      {% endfor %}
+        </tbody>
+       </table>
+      {% else %}
+        <b>You need to Login to view your TOIL Balance or you don't have any entries for TOIL</b><br>
+    {% endif %}
+{% endblock %}

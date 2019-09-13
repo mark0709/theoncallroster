@@ -1,0 +1,70 @@
+{% extends "roster/base.html" %}
+{% block title %}Update TOIL{% endblock %}
+
+{% block extra_js %}
+{% load staticfiles %}
+ <link rel="stylesheet" href="{% static "css/update_toil.css" %}"/>
+ <script type="text/javascript" src='{% static "js/update_toil.js" %}'></script>
+{% endblock extra_js %}
+{% block body_block %}
+   <div class="container">
+      <button class="btn btn-primary" id="leftbutton" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Overtime Rates & Multipliers
+      </button>
+      <p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+             <font size="1">
+             <table class="table table-bordered table-striped table-secondary">
+              <colgroup span="4"></colgroup>
+                   <thead>
+                     <th colspan="2"><center>Oncall Overtime Rates</center></th>
+                     <th colspan="2"><center>Planned Overtime Rates</center></th>
+                   <tr>
+                     <th>Time</th>
+                     <th>On call Multiplier</th>
+                     <th>Time</th>
+                     <th>On call Multiplier</th>
+                   </tr>
+                 </thead>
+                 <tr body>
+                 <tr><td>Between 06:00pm - 10pm & 07:00am - 08:00am</td><td>Time x 1.5</td>
+                     <td>Weekdays between 06:00pm - 10:00pm & 07:00am - 08:00am</td><td>Time x 1.5</td></tr>
+                 <tr><td>Between 10pm & 07:00am</td><td>Time x 2.0</td>
+                     <td>Weekdays between 10:00pm & 07:00am</td><td>Time x 2.0</td></tr>
+                 <tr><td>Any hours worked after the first 3 hours Monday to Friday</td><td>Time x 2.0</td>
+                       <td>Weekdays any hours worked after the first 3 hours</td><td>Time x 2.0</td></tr>
+                 <tr><td>Weekends</td><td>Time x 2.0</td>
+                     <td>Saturdays Midnight to 08:00am</td><td>Time x 2.0</td></tr>
+                 <tr><td>Public Holidays</td><td>Time x 2.5</td>
+                     <td>Saturdays 08:00am to 12 noon</td><td>Time x 1.5</td></tr>
+                  <tr><td></td><td></td><td>Saturdays after 12 noon or after first 3 hours</td><td>Time x 2.0</td></tr>
+                  <tr><td></td><td></td><td>Saturdays 06:00pm to midnight</td><td>Time x 2.0</td></tr>
+                 <tr><td></td><td></td><td>Sundays Midnight to 08:00am</td><td>Time x 2.0</td></tr>
+                  <tr><td></td><td></td><td>Sundays 08:00am to 12 noon</td><td>Time x 2.0</td></tr>
+                 <tr><td></td><td></td><td>Sundays 06:00pm to midnight</td><td>Time x 2.0</td></tr>
+                  <tr><td></td><td></td><td>Public Holidays Midnight to 08:00am</td><td>Time x 2.5</td></tr>
+                 <tr><td></td><td></td><td>Public Holidays 08:00am to 06:00pm</td><td>Time x 1.5</td></tr>
+                 <tr><td></td><td></td><td>Public Holidays 06:00pm to Midnight</td><td>Time x 2.5</td></tr>
+             </table>
+             </font>
+            </div>
+         </div>
+      </div>
+    <p>
+    <div class="container">
+      <form name="status_form" method="POST">
+      {% include 'roster/messages.html' %}
+        {% block content %}
+        {% endblock %}
+      </form>
+    </div>
+    <div class="container">
+     <table class="table table-bordered table-striped table-dark table-primary">
+      <form name="update_toil_form" method="POST">
+       {{ form.as_table }}
+       {% csrf_token %}
+      </table>
+      <input class="btn btn-primary" type="submit" value="submit toil">
+    </div>
+{% endblock %}
